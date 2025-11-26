@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Recipe Manager</title>
+    <!-- Bootstrap CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+  </head>
+  <body>
+    <div class="rm-app d-flex">
+      <!-- Sidebar -->
+      <aside class="rm-sidebar d-flex flex-column p-3">
+        <a class="navbar-brand text-white fw-semibold mb-4 text-decoration-none" href="/">
+          <span class="d-inline-flex align-items-center gap-2">
+            <i class="bi bi-egg-fried"></i>
+            Recipe Manager
+          </span>
+        </a>
+
+        <nav class="nav nav-pills flex-column mb-auto rm-sidebar-nav">
+          <a class="nav-link text-white" th:classappend="${#httpServletRequest.requestURI.startsWith('/recipes')}? ' active' : ''" href="/recipes">
+            <i class="bi bi-journal-text me-2"></i>Recipes
+          </a>
+          <a class="nav-link text-white" href="/recipes/new">
+            <i class="bi bi-plus-circle me-2"></i>New Recipe
+          </a>
+        </nav>
+
+        <div class="mt-auto small text-white-50">
+          <a href="#" class="btn btn-sm btn-outline-light w-100 mb-3"><i class="bi bi-life-preserver me-1"></i>Hire an Expert</a>
+          <div>&copy; <span th:text="${#temporals.createNow().year}">2025</span></div>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <div class="rm-content flex-grow-1">
+        <div class="container-xxl py-4">
+          <!-- Flash messages -->
+          <div class="mb-3">
+            <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+              <span th:text="${success}">Success message</span>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+              <span th:text="${error}">Error message</span>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+
+          <div th:replace="~{::body}"></div>
+        </div>
+
+        <footer class="rm-footer small text-muted py-3 border-top bg-white">
+          <div class="container-xxl d-flex justify-content-between">
+            <span>Built with Spring Boot &amp; Thymeleaf</span>
+            <a class="text-decoration-none" href="/recipes/new"><i class="bi bi-plus-circle me-1"></i>New Recipe</a>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+  </html>

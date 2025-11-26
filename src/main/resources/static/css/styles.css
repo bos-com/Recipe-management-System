@@ -1,0 +1,39 @@
+/* Basic custom styles for Recipe Manager */
+:root {
+  --rm-primary: #0f3d35; /* dark green */
+  --rm-bg: #ffffff;     /* white */
+  --rm-text: #000000;   /* black */
+}
+
+body { padding-bottom: 40px; background-color: var(--rm-bg); color: var(--rm-text); }
+.card { border: 1px solid rgba(0,0,0,.05); }
+.card-img-top { object-fit: cover; height: 200px; }
+.card-hover { transition: transform .12s ease, box-shadow .12s ease; }
+.card-hover:hover { transform: translateY(-2px); box-shadow: 0 .5rem 1rem rgba(0,0,0,.08); }
+
+.opacity-50 { opacity: .5; }
+
+/* App layout */
+.rm-app { min-height: 100vh; }
+.rm-sidebar { width: 260px; background-color: var(--rm-primary); }
+.rm-sidebar .nav-link { border-radius: .5rem; padding: .6rem .8rem; color: rgba(255,255,255,.9); }
+.rm-sidebar .nav-link:hover { background-color: rgba(255,255,255,.08); color: #fff; }
+.rm-sidebar .nav-link.active { background-color: rgba(255,255,255,.16); color: #fff; }
+.rm-sidebar .btn-outline-light { border-color: rgba(255,255,255,.35); color: #fff; }
+.rm-sidebar .btn-outline-light:hover { background: rgba(255,255,255,.15); border-color: transparent; }
+.rm-content { background: var(--rm-bg); }
+.rm-footer { position: sticky; bottom: 0; }
+
+/* Theme mappings for common UI elements */
+a { color: var(--rm-primary); }
+a:hover { color: var(--rm-text); }
+
+.btn-primary { background-color: var(--rm-primary); border-color: var(--rm-primary); }
+.btn-primary:hover { background-color: var(--rm-text); border-color: var(--rm-text); }
+.btn-outline-primary { color: var(--rm-primary); border-color: var(--rm-primary); }
+.btn-outline-primary:hover { background-color: var(--rm-primary); border-color: var(--rm-primary); color: #fff; }
+
+@media (max-width: 576px) {
+  .card-img-top { height: 160px; }
+  .rm-sidebar { width: 220px; }
+}

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" th:replace="~{layout :: body}">
+  <!-- extends layout.html -->
+  <div th:fragment="body">
+    <div class="row mb-3">
+      <div class="col-12 col-md-8">
+        <form class="d-flex" method="get" action="/recipes">
+          <input class="form-control me-2" type="search" name="q" placeholder="Search recipes" th:value="${q}">
+          <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i>Search</button>
+        </form>
+      </div>
+      <div class="col-12 col-md-4 text-md-end mt-2 mt-md-0">
+        <a class="btn btn-primary" href="/recipes/new"><i class="bi bi-plus-circle me-1"></i>Add Recipe</a>
+      </div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(recipes)}" class="text-center py-5 border rounded">
+      <img src="/images/placeholder.svg" alt="No recipes" width="72" class="mb-3 opacity-50">
+      <h5 class="mb-2">No recipes yet</h5>
+      <p class="mb-3">Create your first recipe to get started.</p>
+      <a class="btn btn-primary" href="/recipes/new"><i class="bi bi-plus-circle me-1"></i>Add Recipe</a>
+    </div>
+
+    <div th:if="${!#lists.isEmpty(recipes)}" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+      <div class="col" th:each="r : ${recipes}">
+        <div class="card h-100 card-hover">
+          <img th:src="@{${r.imageFilename} != null ? ('/' + ${@environment.getProperty('app.upload.dir')} + '/' + ${r.imageFilename}) : '/images/placeholder.svg'}" class="card-img-top" alt="Recipe image">
+          <div class="card-body">
+            <h5 class="card-title mb-1" th:text="${r.name}">Recipe name</h5>
+            <p class="card-text small" th:text="${r.description}">Short description</p>
+          </div>
+          <div class="card-footer d-flex justify-content-between align-items-center">
+            <small th:text="${r.category}">Category</small>
+            <div class="d-flex gap-2">
+              <a th:href="@{'/recipes/edit/' + ${r.id}}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+              <form th:action="@{'/recipes/delete/' + ${r.id}}" method="post" style="display:inline-block" onsubmit="return confirm('Delete this recipe?')">
+                <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" th:replace="~{layout :: body}">
+  <div th:fragment="body">
+    <div class="row">
+      <div class="col-12 col-lg-8">
+        <form th:action="@{/recipes}" th:object="${recipe}" method="post" enctype="multipart/form-data">
+          <input type="hidden" th:field="*{id}">
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input class="form-control" th:field="*{name}" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" th:field="*{description}" rows="3"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Category</label>
+            <input class="form-control" th:field="*{category}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Ingredients (one per line)</label>
+            <textarea class="form-control" name="ingredientsText" rows="4" placeholder="200g spaghetti\n1 onion\n2 cloves garlic"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Steps (one per line)</label>
+            <textarea class="form-control" name="stepsText" rows="6" placeholder="Boil water\nCook pasta\nServe"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Image (optional)</label>
+            <input type="file" class="form-control" name="image" accept="image/*">
+            <div class="form-text">If you don't upload an image a placeholder will be shown.</div>
+          </div>
+          <div class="d-flex gap-2">
+            <button class="btn btn-primary" type="submit"><i class="bi bi-check-lg me-1"></i>Save</button>
+            <a class="btn btn-outline-dark" href="/recipes"><i class="bi bi-x-lg me-1"></i>Cancel</a>
+          </div>
+        </form>
+          <input class="form-control" th:field="*{category}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Ingredients (one per line)</label>
+          <textarea class="form-control" name="ingredientsText" rows="4" placeholder="200g spaghetti\n1 onion\n2 cloves garlic"></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Steps (one per line)</label>
+          <textarea class="form-control" name="stepsText" rows="6" placeholder="Boil water\nCook pasta\nServe"></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Image (optional)</label>
+          <input type="file" class="form-control" name="image" accept="image/*">
+          <div class="form-text">If you don't upload an image a placeholder will be shown.</div>
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-primary" type="submit"><i class="bi bi-check-lg me-1"></i>Save</button>
+          <a class="btn btn-outline-dark" href="/recipes"><i class="bi bi-x-lg me-1"></i>Cancel</a>
+        </div>
+      </form>
+    </div>
+    <div class="col-12 col-lg-4 mt-4 mt-lg-0">
+      <div class="card shadow-sm sticky-lg-top" style="top: 88px;">
+        <img th:src="@{${recipe.imageFilename} != null ? ('/' + ${@environment.getProperty('app.upload.dir')} + '/' + ${recipe.imageFilename}) : '/images/placeholder.svg'}" class="card-img-top" alt="Preview">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${recipe.name}">Preview name</h5>
+          <p class="card-text" th:text="${recipe.description}">Preview description</p>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</html>
